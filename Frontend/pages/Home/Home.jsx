@@ -5,15 +5,15 @@ import "./Home.css";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 
 const Home = () => {
-  const [category, setCategory] = useState("All");
+    const [category, setCategory] = useState("All");
 
-  return (
-    <div>
-      <Header />
-      <ExploreMenu category={category} setCategory={setCategory} />
-      <FoodDisplay category={category} />
-    </div>
-  );
+    return (
+        <div>
+            <Header />
+            <ExploreMenu category={category} setCategory={setCategory} />
+            <FoodDisplay category={category} />
+        </div>
+    );
 };
 
 export default Home;
