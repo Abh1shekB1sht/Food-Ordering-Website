@@ -1,11 +1,11 @@
 import express from "express";
 import cors from "cors";
-import bcrypt from "bcrypt";
 import { connectDB } from "./config/db.js";
+import foodRouter from "./routes/foodRoute.js";
 
 // app config
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // middleware
 app.use(express.json());
@@ -13,6 +13,9 @@ app.use(cors());
 
 // db connection
 connectDB();
+
+// api endpoints
+app.use("/api/food", foodRouter);
 
 // route handler
 app.get("/", (req, res) => {
