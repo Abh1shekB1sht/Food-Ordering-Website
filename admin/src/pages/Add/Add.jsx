@@ -4,7 +4,7 @@ import axios from "axios";
 import "./Add.css";
 import { toast } from "react-toastify";
 
-const Add = () => {
+const Add = ({ url }) => {
     const [image, setImage] = useState(null);
     const [data, setData] = useState({
         name: "",
@@ -24,7 +24,6 @@ const Add = () => {
     };
 
     const getData = async (e) => {
-        const url = "http://localhost:4000";
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
