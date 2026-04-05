@@ -16,6 +16,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/food", foodRouter);
+app.use("/images", express.static("uploads"));
 
 // route handler
 app.get("/", (req, res) => {
