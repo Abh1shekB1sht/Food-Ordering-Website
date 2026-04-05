@@ -24,7 +24,7 @@ const StoreContextProvider = (props) => {
         });
     };
 
-    const getTotalCardAmount = () => {
+    const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
             if (cartItems[item]) {
@@ -47,7 +47,7 @@ const StoreContextProvider = (props) => {
         setCartItems,
         addToCart,
         removeFromCart,
-        getTotalCardAmount,
+        getTotalCartAmount,
     };
 
     return (
