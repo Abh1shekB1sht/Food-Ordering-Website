@@ -32,4 +32,31 @@ const listFood = async (req, res) => {
     }
 };
 
-export { addFood, listFood };
+// remove food item
+const removeFood = async (req, res) => {
+    try {
+        const food = await foodModel.findById(req.params.id);
+        if (!food) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Food item not found" });
+        }
+        await foodModel.findByIdAndDelete(req.params.id);
+        fs.unlink(`uploads/${food.image}`, (err) => {
+            if (err) {
+                console.error("Error deleting image file:", err);
+            }
+        });
+        res.status(200).json({
+            success: true,
+            message: "Food item removed successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error removing food item",
+        });
+    }
+};
+
+export { addFood, listFood, removeFood };
