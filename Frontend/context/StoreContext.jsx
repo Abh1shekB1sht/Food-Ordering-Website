@@ -24,7 +24,7 @@ const StoreContextProvider = (props) => {
         }
     };
 
-    const removeFromCart = (itemId) => {
+    const removeFromCart = async (itemId) => {
         setCartItems((prev) => {
             if (!prev[itemId]) return prev;
             const updatedCount = prev[itemId] - 1;
@@ -34,6 +34,12 @@ const StoreContextProvider = (props) => {
             }
             return { ...prev, [itemId]: updatedCount };
         });
+        if (token) {
+            await axios.delete(url + "/api/cart/remove", {
+                data: { itemId },
+                headers: { Authorization: `Bearer ${token}` },
+            });
+        }
     };
 
     const getTotalCartAmount = () => {
