@@ -18,6 +18,7 @@ const addFood = async (req, res) => {
             message: "Food item added successfully",
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: "Error adding food item",
@@ -58,6 +59,7 @@ const removeFood = async (req, res) => {
             message: "Food item removed successfully",
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: "Error removing food item",
