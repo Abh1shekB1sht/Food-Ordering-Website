@@ -31,6 +31,7 @@ const loginUser = async (req, res) => {
             token,
         });
     } catch (error) {
+        console.log(error);
         return res.json({ success: false, message: error.message });
     }
 };
@@ -87,6 +88,7 @@ const registerUser = async (req, res) => {
             token,
         });
     } catch (error) {
+        console.log(error);
         return res.json({ success: false, message: error.message });
     }
 };
