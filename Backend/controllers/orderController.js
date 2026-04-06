@@ -26,7 +26,10 @@ const placeOrder = async (req, res) => {
             return {
                 price_data: {
                     currency: "inr",
-                    product_data: Object.assign({ name: item.name }, item.image ? { images: [item.image] } : {}),
+                    product_data: Object.assign(
+                        { name: item.name },
+                        item.image ? { images: [item.image] } : {},
+                    ),
                     unit_amount: unitAmount,
                 },
                 quantity: Number(item.quantity) || 1,
