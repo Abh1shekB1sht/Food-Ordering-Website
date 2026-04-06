@@ -47,6 +47,7 @@ const removeFromCart = async (req, res) => {
             .status(200)
             .json({ success: true, message: "Item removed from cart" });
     } catch (error) {
+        console.log(error);
         return res
             .status(500)
             .json({ success: false, message: "Error removing from cart" });
@@ -67,6 +68,7 @@ const getCart = async (req, res) => {
         // if cart is not empty, return cart data
         return res.status(200).json({ success: true, cartData });
     } catch (error) {
+        console.log(error);
         return res
             .status(500)
             .json({ success: false, message: "Error fetching cart data" });
