@@ -44,20 +44,33 @@ const StoreContextProvider = (props) => {
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
-        for (const item in cartItems) {
-            if (cartItems[item]) {
+        for (const itemId in cartItems) {
+            const quantity = cartItems[itemId];
+            if (quantity) {
                 const itemInfo = food_list.find(
-                    (product) => product._id === item,
+                    (product) => String(product._id) === String(itemId),
                 );
-                totalAmount += itemInfo.price * cartItems[item];
+                if (itemInfo) {
+                    totalAmount += itemInfo.price * quantity;
+                } else {
+                    console.warn(
+                        "getTotalCartAmount: item not found in food_list",
+                        itemId,
+                    );
+                }
             }
         }
         return totalAmount;
     };
 
     const fetchFoodList = async () => {
-        const response = await axios.get(`${url}/api/food/list`);
-        setFoodList(response.data.data);
+        try {
+            const response = await axios.get(`${url}/api/food/list`);
+            setFoodList(response.data.data || []);
+        } catch (error) {
+            console.error("Failed to fetch food list:", error);
+            setFoodList([]);
+        }
     };
 
     useEffect(() => {
