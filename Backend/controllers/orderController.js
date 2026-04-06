@@ -22,26 +22,26 @@ const placeOrder = async (req, res) => {
 
         // creating line items for stripe payment intent
         const line_items = req.body.items.map((item) => {
+            const unitAmount = Math.round(Number(item.price) * 100); // price in smallest currency unit (paise)
             return {
                 price_data: {
                     currency: "inr",
-                    product_data: {
-                        name: item.name,
-                    },
-                    unit_amount: item.price * 100 * 80,
+                    product_data: Object.assign({ name: item.name }, item.image ? { images: [item.image] } : {}),
+                    unit_amount: unitAmount,
                 },
-                quantity: item.quantity,
+                quantity: Number(item.quantity) || 1,
             };
         });
 
         // adding delivery charges to line items
+        const deliveryAmount = Math.round(2 * 100);
         line_items.push({
             price_data: {
                 currency: "inr",
                 product_data: {
                     name: "Delivery Charges",
                 },
-                unit_amount: 2 * 80 * 100,
+                unit_amount: deliveryAmount,
             },
             quantity: 1,
         });
