@@ -9,10 +9,19 @@ const StoreContextProvider = (props) => {
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([]);
 
-    const addToCart = (itemId) => {
+    const addToCart = async (itemId) => {
         setCartItems((prev) => {
             return { ...prev, [itemId]: (prev[itemId] || 0) + 1 };
         });
+        if (token) {
+            await axios.post(
+                url + "/api/cart/add",
+                { itemId },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                },
+            );
+        }
     };
 
     const removeFromCart = (itemId) => {
